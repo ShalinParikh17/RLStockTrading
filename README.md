@@ -23,10 +23,6 @@ Deep Q-Learning
 
 Double Deep Q-Learning
 
-## Evaluation
-
-
-https://github.com/ShalinParikh17/RLStockTrading/blob/main/Screen%20Shot%202022-06-12%20at%2001.13.02.png
 
 
 ## Results
