@@ -3,11 +3,6 @@ import numpy as np
 import ta
 
 def add_momentum_indicators(high, low, close, volume, n_period = 7, fillna=True):
-	"""
-	Money Flow Index (MFI)
-	True strength index (TSI)
-	Kaufman's Adaptive Moving Average (KAMA)
-	"""
 	df = pd.DataFrame(index = close.index)
 	df['mom_mfi'] = ta.momentum.MFIIndicator(high, low, close, volume, n_period, fillna = fillna).money_flow_index()
 	df['mom_tsi'] = ta.momentum.TSIIndicator(close, fillna = fillna).tsi()
@@ -15,16 +10,6 @@ def add_momentum_indicators(high, low, close, volume, n_period = 7, fillna=True)
 	return df
 
 def add_trend_indicators(high, low, close, volume, n_period = 7, fillna = True):
-	"""
-	Vortex Indicator (VI)
-	Trix (TRIX)
-	Mass Index (MI)
-	Commodity Channel Index (CCI)
-	Detrended Price Oscillator (DPO)
-	KST Oscillator (KST)
-	Ichimoku Kinkō Hyō (Ichimoku)
-	Parabolic Stop And Reverse (Parabolic SAR)
-	"""
 	df = pd.DataFrame(index = close.index)
 	df['trend_vi'] = ta.trend.VortexIndicator(high, low, close, n_period, fillna).vortex_indicator_diff()
 	df['trend_trix'] = ta.trend.trix(close, n_period, fillna)
@@ -37,11 +22,6 @@ def add_trend_indicators(high, low, close, volume, n_period = 7, fillna = True):
 	return df
 
 def add_volatility_indicators(high, low, close, n_period = 7, fillna=True):
-	"""
-	Average True Range (ATR)
-	Keltner Channel (KC)
-	Donchian Channel (DC)
-	"""
 	df = pd.DataFrame(index = close.index)
 	df['vol_atr'] = ta.volatility.AverageTrueRange(high, low, close, n_period, fillna).average_true_range()
 	df['vol_kc'] = ta.volatility.KeltnerChannel(high, low, close, n_period, fillna).keltner_channel_central()
@@ -50,12 +30,6 @@ def add_volatility_indicators(high, low, close, n_period = 7, fillna=True):
 	return df
 
 def add_volume_indicators(high, low, close, volume, n_period = 7, fillna=True):
-	"""
-	Accumulation/Distribution Index (ADI)
-	Chaikin Money Flow (CMF)
-	Volume-price Trend (VPT)
-	Negative Volume Index (NVI)
-	"""
 	df = pd.DataFrame(index = close.index)
 	df['volume_adi'] = ta.volume.AccDistIndexIndicator(high, low, close, volume, fillna).acc_dist_index()
 	df['volume_cmf'] = ta.volume.ChaikinMoneyFlowIndicator(high, low, close, volume, n_period, fillna).chaikin_money_flow()

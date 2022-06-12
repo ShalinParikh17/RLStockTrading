@@ -5,11 +5,6 @@ from tqdm import tqdm
 from src.utils import get_state, format_currency, format_position, normalize
 import pdb
 
-'''
-1. Move daily_pct_return to utils
-2. Move calc_reward to utils
-'''
-
 def daily_pct_change(prices, shift):
   pct_change = (prices.copy() / prices.copy().shift(periods = shift)) - 1
   pct_change[:shift] = 0

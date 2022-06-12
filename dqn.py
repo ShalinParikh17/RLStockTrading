@@ -11,10 +11,6 @@ from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 from src.agent import RLAgent
 
-
-
-
-
 class DQNAgent(Agent):
     def _init_(self,
                  state_size,
@@ -59,9 +55,6 @@ class DQNAgent(Agent):
         self.brain = load_model(r'./Saved Models/'+self.symbol+'.h5')
 
     def _build_brain(self):
-        """Build the agent's brain
-        """
-        # pdb.set_trace()
         brain = Sequential()
         neurons_per_layer = 24
         activation = "relu"
@@ -75,8 +68,6 @@ class DQNAgent(Agent):
         return brain
 
     def act(self, state, test=False):
-        """Acting Policy of the DDDQNAgent
-        """
         act_values=[]
         action = np.zeros(self.action_size)
         if np.random.rand() <= self.epsilon and self.train_test == 'train' and not test:
@@ -93,12 +84,9 @@ class DQNAgent(Agent):
 
 
     def observe(self, state, action, reward, next_state, done, warming_up=False):
-        """Memory Management and training of the agent
-        """
         self.i = (self.i + 1) % self.memory_size
         self.memory[self.i] = (state, action, reward, next_state, done)
         if (self.i == self.memory_size - 1):
-            # print("Memory Refilled")
             pass
         if (not warming_up) and (self.i % self.train_interval) == 0:
             if self.epsilon > self.epsilon_min:
@@ -118,10 +106,6 @@ class DQNAgent(Agent):
                                   validation_split=0.1)
 
     def _get_batches(self):
-        """Selecting a batch of memory
-           Split it into categorical subbatches
-           Process action_batch into a position vector
-        """
         batch = np.array(random.sample(self.memory, self.batch_size))
         state_batch = np.concatenate(batch[:, 0]) \
             .reshape(self.batch_size, self.state_size)
